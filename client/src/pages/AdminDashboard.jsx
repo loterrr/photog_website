@@ -159,6 +159,7 @@ const AdminDashboard = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Client</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Service</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Notes</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Status</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Actions</th>
                                 </tr>
@@ -169,6 +170,7 @@ const AdminDashboard = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">{booking.User?.name}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">{booking.Service?.name || 'Deleted'}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">{new Date(booking.date).toLocaleDateString()}</td>
+                                        <td className="px-6 py-4 text-sm text-neutral-500 max-w-xs truncate" title={booking.notes}>{booking.notes || '-'}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                       ${booking.status === 'approved' ? 'bg-green-100 text-green-800' :
