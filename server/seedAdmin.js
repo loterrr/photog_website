@@ -35,4 +35,8 @@ const seedAdmin = async () => {
     }
 };
 
-seedAdmin();
+if (require.main === module) {
+    seedAdmin();
+}
+
+module.exports = seedAdmin;

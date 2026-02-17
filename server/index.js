@@ -22,12 +22,23 @@ app.use('/api/portfolio', require('./routes/portfolioRoutes'));
 
 // Temporary Seed Route
 const seedServices = require('./seedServices');
+const seedAdmin = require('./seedAdmin');
+
 app.get('/api/seed', async (req, res) => {
     try {
         await seedServices();
-        res.send('Database seeded successfully!');
+        res.send('Database (Services) seeded successfully!');
     } catch (error) {
-        res.status(500).send('Error seeding database: ' + error.message);
+        res.status(500).send('Error seeding services: ' + error.message);
+    }
+});
+
+app.get('/api/seed-admin', async (req, res) => {
+    try {
+        await seedAdmin();
+        res.send('Admin user seeded successfully! Email: admin@luminalens.com, Password: adminpassword123');
+    } catch (error) {
+        res.status(500).send('Error seeding admin: ' + error.message);
     }
 });
 
