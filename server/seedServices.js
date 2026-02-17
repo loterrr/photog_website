@@ -189,7 +189,9 @@ const seedServices = async () => {
     } catch (error) {
         console.error('Error seeding services:', error);
     } finally {
-        await sequelize.close();
+        if (require.main === module) {
+            await sequelize.close();
+        }
     }
 };
 

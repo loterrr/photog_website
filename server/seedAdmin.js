@@ -31,7 +31,9 @@ const seedAdmin = async () => {
     } catch (error) {
         console.error('Error seeding admin:', error);
     } finally {
-        await sequelize.close();
+        if (require.main === module) {
+            await sequelize.close();
+        }
     }
 };
 
