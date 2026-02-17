@@ -10,6 +10,12 @@ const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT || 'postgres',
     storage: process.env.DB_DIALECT === 'sqlite' ? './database.sqlite' : undefined,
     logging: false,
+    dialectOptions: process.env.DB_DIALECT === 'postgres' ? {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    } : {}
   }
 );
 
