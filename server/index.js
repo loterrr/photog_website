@@ -1,4 +1,6 @@
 const express = require('express');
+const dns = require('node:dns');
+dns.setDefaultResultOrder('ipv4first');
 // Trigger restart
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -18,8 +20,16 @@ app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 app.use('/api/portfolio', require('./routes/portfolioRoutes'));
 
-
-
+// Temporary Seed Route
+const seedServices = require('./seedServices');
+app.get('/api/seed', async (req, res) => {
+    try {
+        await seedServices();
+        res.send('Database seeded successfully!');
+    } catch (error) {
+        res.status(500).send('Error seeding database: ' + error.message);
+    }
+});
 
 
 // Basic route
