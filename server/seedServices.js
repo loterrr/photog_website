@@ -193,4 +193,8 @@ const seedServices = async () => {
     }
 };
 
-seedServices();
+if (require.main === module) {
+    seedServices();
+}
+
+module.exports = seedServices;
