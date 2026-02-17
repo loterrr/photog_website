@@ -6,24 +6,26 @@ const seedAdmin = async () => {
         await sequelize.authenticate();
         console.log('Database connected.');
 
-        const adminEmail = 'admin@luminalens.com';
+        const adminEmail = 'admin@enens.com';
         const adminPassword = 'adminpassword123';
 
         const existingAdmin = await User.findOne({ where: { email: adminEmail } });
+
         if (existingAdmin) {
-            console.log('Admin user already exists.');
-            return;
+            console.log('Admin user exists. Updating role to admin...');
+            existingAdmin.role = 'admin';
+            await existingAdmin.save();
+        } else {
+            const salt = await bcrypt.genSalt(10);
+            const password_hash = await bcrypt.hash(adminPassword, salt);
+
+            await User.create({
+                name: 'Admin User',
+                email: adminEmail,
+                password_hash: password_hash,
+                role: 'admin'
+            });
         }
-
-        const salt = await bcrypt.genSalt(10);
-        const password_hash = await bcrypt.hash(adminPassword, salt);
-
-        await User.create({
-            name: 'Admin User',
-            email: adminEmail,
-            password_hash: password_hash,
-            role: 'admin'
-        });
 
         console.log('Admin user created successfully.');
         console.log(`Email: ${adminEmail}`);
